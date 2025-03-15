@@ -1,0 +1,59 @@
+{
+  "name": "doc-genie",
+  "version": "0.1.0",
+  "description": "AI-powered documentation enforcement tool that automatically generates JSDoc comments for new functions",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "bin": {
+    "doc-genie": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "keywords": [
+    "documentation",
+    "jsdoc",
+    "ai",
+    "openai",
+    "git",
+    "automation",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "dotenv": "^16.4.7",
+    "openai": "^4.28.0",
+    "simple-git": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/estree": "^1.0.6",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "@typescript-eslint/types": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "~5.5.0"
+  }
+}

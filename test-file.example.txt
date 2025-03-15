@@ -1,0 +1,26 @@
+// This function has JSDoc, should be ignored
+/**
+ * Adds two numbers together
+ * @param a First number
+ * @param b Second number
+ * @returns Sum of a and b
+ */
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// This function has no JSDoc, should be detected
+function subtract(a: number, b: number): number {
+  return a - b;
+}
+
+// This arrow function has no JSDoc, should be detected
+const multiply = (a: number, b: number): number => {
+  return a * b;
+};
+
+// This function expression has no JSDoc, should be detected
+const divide = function(a: number, b: number): number {
+  if (b === 0) throw new Error('Division by zero');
+  return a / b;
+}; 
