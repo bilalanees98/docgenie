@@ -6,7 +6,7 @@ npm run build
 
 # Add test file to git
 echo "Adding test file to git..."
-git add test-file.ts
+git add test-file.ts -f
 
 # Run the CLI
 echo "Running doc-genie..."

@@ -26,7 +26,7 @@
   - [x] Check for existing JSDoc comments
 - [x] Set up OpenAI integration
 - [x] Create test script for development
-- [ ] fix issue: unable to detect functions with existing jsdocs
+- [x] fix issue: unable to detect functions with existing jsdocs
 - [ ] feat: adds AI generate docs as diff that can be accepted/rejected
 
 ### Testing

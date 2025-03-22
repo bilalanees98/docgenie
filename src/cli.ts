@@ -7,9 +7,8 @@ config();
 
 import { Command } from "commander";
 // import { version } from "../package.json";
-import { scanGitDiff } from "./git/diffScanner.js";
 import { generateDocs } from "./ai/docGenerator.js";
-
+import { scanGitDiffTS } from "./git/tsdiffScanner.js";
 const program = new Command();
 
 program
@@ -23,7 +22,8 @@ program
   .option("-s, --staged", "Only scan staged changes", false)
   .action(async (options) => {
     try {
-      const newFunctions = await scanGitDiff(options.staged);
+      const newFunctions = await scanGitDiffTS(options.staged);
+
       if (newFunctions.length === 0) {
         console.log("No new functions found in the diff.");
         return;
