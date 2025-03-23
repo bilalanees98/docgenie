@@ -27,7 +27,8 @@
 - [x] Set up OpenAI integration
 - [x] Create test script for development
 - [x] fix issue: unable to detect functions with existing jsdocs
-- [ ] feat: adds AI generate docs as diff that can be accepted/rejected
+- [x] feat: adds AI generate docs as diff that can be accepted/rejected
+- [] feat: add full context view functionality for each change - should show the entire file
 
 ### Testing
 
@@ -43,6 +44,7 @@
 - [ ] Document configuration options
 - [ ] Add contributing guidelines
 - [ ] Add changelog
+- [ ] use doc genie to add jsdocs to all functions
 
 ### Features
 

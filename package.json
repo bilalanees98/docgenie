@@ -37,12 +37,16 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
+    "diff": "^7.0.0",
     "dotenv": "^16.4.7",
+    "inquirer": "^12.5.0",
     "openai": "^4.28.0",
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
+    "@types/diff": "^7.0.1",
     "@types/estree": "^1.0.6",
+    "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.12",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
