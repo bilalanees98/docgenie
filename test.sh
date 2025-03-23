@@ -8,10 +8,11 @@ npm run build
 echo "Adding test file to git..."
 git add test-file.ts -f
 
-# Run the CLI
-echo "Running doc-genie..."
-dist/cli.js scan --staged
+# Test the diff scanner
+echo -e "\nTesting diff scanner..."
+./dist/cli.js scan --staged
+
 
 # Clean up
-echo "Cleaning up..."
+echo -e "\nCleaning up..."
 git reset test-file.ts 

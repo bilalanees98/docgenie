@@ -1,14 +1,16 @@
 import simpleGit from "simple-git";
-import * as ts from "typescript";
 import * as fs from "fs";
+import * as ts from "typescript";
+import {
+  FunctionInfo,
+  isProcessableFile,
+  isFunctionLike,
+  createSourceFile,
+  getFunctionInfo,
+} from "../utils/tsUtils.js";
 
-export interface DetectedFunction {
-  name: string;
-  code: string;
-  filePath: string;
-  lineNumber: number;
-  hasJSDoc: boolean;
-}
+// DetectedFunction requires the code property
+export type DetectedFunction = FunctionInfo & { code: string };
 
 interface FileDiff {
   filePath: string;
@@ -35,26 +37,20 @@ export async function scanGitDiffTS(
   const detectedFunctions: DetectedFunction[] = [];
 
   for (const fileDiff of fileDiffs) {
-    if (!fileDiff.filePath.match(/\.(ts|js|tsx|jsx)$/)) {
+    if (!isProcessableFile(fileDiff.filePath)) {
       continue;
     }
 
     try {
       const fileContent = fs.readFileSync(fileDiff.filePath, "utf-8");
-
-      const sourceFile = ts.createSourceFile(
-        fileDiff.filePath,
-        fileContent,
-        ts.ScriptTarget.Latest,
-        true
-      );
+      const sourceFile = createSourceFile(fileDiff.filePath, fileContent);
 
       for (const hunk of fileDiff.hunks) {
         const functions = findFunctionsInHunk(
           sourceFile,
           hunk.newStart,
           hunk.newStart + hunk.newLines
-        );
+        ) as DetectedFunction[]; // We know these will have code
         detectedFunctions.push(...functions);
       }
     } catch (error) {
@@ -121,30 +117,18 @@ function findFunctionsInHunk(
   sourceFile: ts.SourceFile,
   startLine: number,
   endLine: number
-): DetectedFunction[] {
-  const detected: DetectedFunction[] = [];
+): FunctionInfo[] {
+  const detected: FunctionInfo[] = [];
 
   function visit(node: ts.Node) {
-    if (
-      ts.isFunctionDeclaration(node) ||
-      ts.isFunctionExpression(node) ||
-      ts.isArrowFunction(node) ||
-      ts.isMethodDeclaration(node)
-    ) {
+    if (isFunctionLike(node)) {
       const { line } = sourceFile.getLineAndCharacterOfPosition(
         node.getStart()
       );
       const lineNumber = line + 1;
 
       if (lineNumber >= startLine && lineNumber <= endLine) {
-        const jsDocs = ts.getJSDocTags(node);
-        detected.push({
-          name: getFunctionName(node),
-          code: node.getFullText(sourceFile),
-          filePath: sourceFile.fileName,
-          lineNumber,
-          hasJSDoc: jsDocs.length > 0,
-        });
+        detected.push(getFunctionInfo(node, sourceFile, true));
       }
     }
     ts.forEachChild(node, visit);
@@ -152,19 +136,4 @@ function findFunctionsInHunk(
 
   visit(sourceFile);
   return detected;
-}
-
-function getFunctionName(node: ts.FunctionLikeDeclaration): string {
-  if (ts.isFunctionDeclaration(node) || ts.isMethodDeclaration(node)) {
-    return node.name?.getText() || "anonymous";
-  }
-
-  if (ts.isFunctionExpression(node) || ts.isArrowFunction(node)) {
-    const parent = node.parent;
-    if (ts.isVariableDeclaration(parent) && parent.name) {
-      return parent.name.getText();
-    }
-  }
-
-  return "anonymous";
 }
