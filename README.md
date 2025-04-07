@@ -1,85 +1,100 @@
-# 🚀 DocGenie Roadmap
+# DocGenie
 
-DocGenie is an AI-powered tool that aims to enforce documenation in codebases. Initially it will automatically detect new functions in a commit diff and generates JSDoc-style comments. Below is the planned development roadmap.
+![DocGenie Logo](https://via.placeholder.com/150x150.png?text=DocGenie)
 
-## **📅 Phase 1: MVP (Weeks 1-4)**
-### 🎯 Goal: Build a working CLI that detects new functions and generates JSDoc comments.
+> AI-powered documentation enforcement tool that automatically generates JSDoc comments for new functions
 
-✅ **Week 1** – Project Setup & Basic CLI  
-- [ ] Initialize a **Node.js + TypeScript** CLI project.  
-- [ ] Add Git integration: Extract commit diffs (`git diff`).  
-- [ ] Parse diff to detect added functions (Regex-based).  
-- [ ] Setup **OpenAI API** for JSDoc generation.  
+[![npm version](https://badge.fury.io/js/doc-genie.svg)](https://badge.fury.io/js/doc-genie)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%3E%3D5.0.0-blue.svg)](https://www.typescriptlang.org/)
 
-✅ **Week 2** – CLI Improvements & Auto-Insert JSDoc  
-- [ ] Improve function detection using **AST parsing** (Acorn/Babel).  
-- [ ] Generate JSDoc comments with **AI-powered descriptions**.  
-- [ ] Automatically insert JSDoc before functions in the code.  
+DocGenie is a CLI tool that helps maintain documentation standards in your codebase by automatically detecting undocumented functions and generating JSDoc comments for them. It integrates with Git to scan diffs and can be used as part of your development workflow or CI/CD pipeline.
 
-✅ **Week 3** – Pre-commit Hook & GitHub Action  
-- [ ] Create a **Git pre-commit hook** (runs before commits).  
-- [ ] Setup an optional **GitHub Action** (auto-comments on PR diffs).  
-- [ ] Allow configuration via `.docgenie.config.json`.  
+## Features
 
-✅ **Week 4** – Open-Source Release  
-- [ ] Publish **DocGenie CLI** as an **npm package**.  
-- [ ] Add a **README.md** with installation & usage guide.  
-- [ ] Setup a **landing page** (GitHub Pages or simple Next.js site).  
+- 🔍 **Detect Undocumented Functions**: Automatically identify functions without JSDoc comments
+- 🤖 **AI-Powered Documentation**: Generate meaningful JSDoc comments using OpenAI
+- 📊 **Coverage Reporting**: Track documentation coverage across your codebase
+- 🔄 **Git Integration**: Scan staged changes or entire repositories
+- 🛠️ **Customizable**: Configure thresholds, templates, and more
 
----
+## Installation
 
-## **🚀 Phase 2: Enhancements (Weeks 5-8)**
-### 🎯 Goal: Improve accuracy, add more integrations, and increase adoption.
+```bash
+# Install globally
+npm install -g doc-genie
 
-✅ **Week 5-6** – Advanced AI & Customization  
-- [ ] Improve JSDoc formatting & linting support.  
-- [ ] Allow users to define **custom templates** for JSDoc.  
-- [ ] Add **multi-file support** (scan entire repo, not just diffs).  
+# Or install as a dev dependency in your project
+npm install --save-dev doc-genie
+```
 
-✅ **Week 7-8** – IDE & CI/CD Integration  
-- [ ] **VS Code Extension** for real-time suggestions.  
-- [ ] **GitHub Bot** that comments on PRs.  
-- [ ] Option to store generated docs in a separate file (`docs/`).
+## Quick Start
 
----
- 
-## **🔮 Potential Future Pathways: Expanding DocGenie as a Documentation Enforcer**
+1. **Set up your OpenAI API key**:
 
-### **Documentation Coverage Tracking**
-- Generate a **Doc Coverage Report** (like test coverage).  
-- Show **% of documented functions vs. undocumented ones**.  
-- CI/CD integration: **Fail PRs if new functions aren’t documented**.  
+   ```bash
+   # Create a .env file in your project root
+   echo "OPENAI_API_KEY=your_api_key_here" > .env
+   ```
 
-### **Enforce Documentation Standards**
-- Lint JSDoc comments for **missing parameters, return types, or descriptions**.  
-- Allow **custom JSDoc templates** per project.  
-- Work with **ESLint & Prettier** for doc formatting enforcement.  
+2. **Scan for undocumented functions in staged changes**:
 
-### **GitHub & GitLab Bot for PR Documentation Checks**
-- Auto-comment on PRs when **new functions lack documentation**.  
-- Suggest AI-generated JSDoc directly in PR comments.  
-- Allow maintainers to enforce **doc compliance before merging**.  
+   ```bash
+   doc-genie scan --staged
+   ```
 
-### **AI-Powered Doc Quality Analysis**
-- Detect **vague or low-quality** doc comments.  
-- Suggest **better explanations** using AI.  
-- Flag **outdated documentation** based on function changes.  
+3. **Generate a coverage report**:
+   ```bash
+   doc-genie coverage
+   ```
 
-### **JSDoc Auto-Refactoring & Maintenance**
-- Detect and fix **inconsistent doc formatting**.  
-- Auto-update doc comments when function signatures change.  
-- Enforce **naming conventions in documentation**.  
+## Usage
 
-### **Team Dashboard for Doc Health**
-- Track **documentation trends over time**.  
-- Show which devs are contributing good documentation.  
-- Identify **undocumented high-impact functions**.  
+### Scanning for Undocumented Functions
 
-### **Multi-Language Support**
-- Expand beyond JavaScript & TypeScript.  
-- Support **Python (docstrings), Go (godoc), Java (Javadoc), etc.**.  
-- Ensure **cross-language documentation consistency**.  
+```bash
+# Scan staged changes
+doc-genie scan --staged
 
+# Scan all changes (not just staged)
+doc-genie scan
 
+# Scan a specific file
+doc-genie scan --file path/to/file.ts
+```
 
+### Coverage Reporting
 
+```bash
+# Generate a coverage report for the current directory
+doc-genie coverage
+
+# Generate a coverage report for a specific file
+doc-genie coverage --file path/to/file.ts
+
+# Generate a coverage report for a specific directory
+doc-genie coverage --dir path/to/directory
+
+# Set a custom coverage threshold (default: 70%)
+doc-genie coverage --threshold 80
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- OpenAI for providing the API that powers the documentation generation
+- The TypeScript team for their excellent compiler API
