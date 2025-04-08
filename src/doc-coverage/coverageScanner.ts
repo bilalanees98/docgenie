@@ -64,7 +64,7 @@ function scanFile(filePath: string): FileCoverage {
  * Generates a coverage report for all TypeScript/JavaScript files in the given directory
  */
 export async function generateCoverageReport(
-  targetPath: string = process.cwd()
+  targetPath: string = process.cwd(),
 ): Promise<CoverageReport> {
   const fileReports: FileCoverage[] = [];
   let totalFunctions = 0;
@@ -101,7 +101,7 @@ export async function generateCoverageReport(
     scanDirectory(targetPath);
   } else {
     throw new Error(
-      `Invalid path: ${targetPath} is neither a file nor a directory`
+      `Invalid path: ${targetPath} is neither a file nor a directory`,
     );
   }
 
@@ -129,7 +129,7 @@ export function printCoverageReport(report: CoverageReport): void {
   console.log(`Documented functions: ${report.documentedFunctions}`);
   console.log(
     `Coverage: ${chalk.bold(report.coverage.toFixed(2))}%`,
-    getCoverageColor(report.coverage)
+    getCoverageColor(report.coverage),
   );
 
   // Print file details
@@ -141,7 +141,7 @@ export function printCoverageReport(report: CoverageReport): void {
     console.log(
       `\n${chalk.cyan(file.filePath)}:`,
       `${fileCoverage.toFixed(2)}%`,
-      getCoverageColor(fileCoverage)
+      getCoverageColor(fileCoverage),
     );
 
     if (file.undocumentedFunctions.length > 0) {

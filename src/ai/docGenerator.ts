@@ -48,7 +48,7 @@ function cleanupJSDoc(jsdoc: string): string {
 }
 
 export async function generateDocs(
-  functions: DetectedFunction[]
+  functions: DetectedFunction[],
 ): Promise<DocGenerationResult[]> {
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,

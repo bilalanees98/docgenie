@@ -43,7 +43,7 @@ export function getFunctionName(node: ts.FunctionLikeDeclaration): string {
  * Checks if a node is a function-like declaration
  */
 export function isFunctionLike(
-  node: ts.Node
+  node: ts.Node,
 ): node is ts.FunctionLikeDeclaration {
   return (
     ts.isFunctionDeclaration(node) ||
@@ -58,7 +58,7 @@ export function isFunctionLike(
  */
 export function createSourceFile(
   filePath: string,
-  content: string
+  content: string,
 ): ts.SourceFile {
   return ts.createSourceFile(filePath, content, ts.ScriptTarget.Latest, true);
 }
@@ -69,7 +69,7 @@ export function createSourceFile(
 export function getFunctionInfo(
   node: ts.FunctionLikeDeclaration,
   sourceFile: ts.SourceFile,
-  includeCode: boolean = false
+  includeCode: boolean = false,
 ): FunctionInfo {
   const { line } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
   const jsDocs = ts.getJSDocTags(node);

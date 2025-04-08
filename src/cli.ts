@@ -37,8 +37,8 @@ program
 
       console.log(
         chalk.cyan(
-          `\nFound ${newFunctions.length} new functions. Generating documentation...\n`
-        )
+          `\nFound ${newFunctions.length} new functions. Generating documentation...\n`,
+        ),
       );
       const results = await generateDocs(newFunctions);
 
@@ -49,8 +49,8 @@ program
       if (modifiedFiles.length > 0) {
         console.log(
           chalk.green(
-            `\nCompleted! Added documentation to ${modifiedFiles.length} files.`
-          )
+            `\nCompleted! Added documentation to ${modifiedFiles.length} files.`,
+          ),
         );
       } else {
         console.log(chalk.yellow("\nNo changes were accepted."));
@@ -58,7 +58,7 @@ program
     } catch (error) {
       console.error(
         chalk.red("Error:"),
-        error instanceof Error ? error.message : error
+        error instanceof Error ? error.message : error,
       );
       process.exit(1);
     }
@@ -84,7 +84,7 @@ program
       targetPath = path.resolve(process.cwd(), targetPath);
 
       console.log(
-        chalk.cyan(`Generating JSDoc coverage report for: ${targetPath}`)
+        chalk.cyan(`Generating JSDoc coverage report for: ${targetPath}`),
       );
       const report = await generateCoverageReport(targetPath);
       printCoverageReport(report);
@@ -94,15 +94,15 @@ program
       if (report.coverage < threshold) {
         console.log(
           chalk.red(
-            `\nCoverage (${report.coverage.toFixed(2)}%) is below the threshold (${threshold}%)`
-          )
+            `\nCoverage (${report.coverage.toFixed(2)}%) is below the threshold (${threshold}%)`,
+          ),
         );
         process.exit(1);
       }
     } catch (error) {
       console.error(
         chalk.red("Error:"),
-        error instanceof Error ? error.message : error
+        error instanceof Error ? error.message : error,
       );
       process.exit(1);
     }

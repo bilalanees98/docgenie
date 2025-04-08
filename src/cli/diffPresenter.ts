@@ -29,7 +29,7 @@ function cleanupDiffOutput(diffOutput: string): string {
  * Converts DocGenerationResults to JSDocDiffs for presentation
  */
 export function convertResultsToDiffs(
-  results: DocGenerationResult[]
+  results: DocGenerationResult[],
 ): JSDocDiff[] {
   return results.map((result) => ({
     filePath: result.function.filePath,
@@ -63,7 +63,7 @@ export async function presentDiffs(diffs: JSDocDiff[]): Promise<string[]> {
 
     // Show colorized diff
     console.log(
-      chalk.cyan(`\nFile: ${adjustedDiff.filePath}:${adjustedDiff.lineNumber}`)
+      chalk.cyan(`\nFile: ${adjustedDiff.filePath}:${adjustedDiff.lineNumber}`),
     );
     console.log(chalk.yellow(`Function: ${adjustedDiff.functionName}\n`));
 
@@ -82,7 +82,7 @@ export async function presentDiffs(diffs: JSDocDiff[]): Promise<string[]> {
           if (line.startsWith("-")) return chalk.red(line);
           return line;
         })
-        .join("\n")
+        .join("\n"),
     );
 
     // Ask for confirmation
@@ -110,7 +110,7 @@ export async function presentDiffs(diffs: JSDocDiff[]): Promise<string[]> {
           const jsdocLineCount = adjustedDiff.proposedJSDoc.split("\n").length;
           lineAdjustments.set(
             adjustedDiff.filePath,
-            currentAdjustment + jsdocLineCount
+            currentAdjustment + jsdocLineCount,
           );
         } catch (error) {
           console.error(chalk.red("\n✗ Failed to apply change:"), error);
@@ -121,11 +121,11 @@ export async function presentDiffs(diffs: JSDocDiff[]): Promise<string[]> {
         console.log(chalk.yellow("\nQuitting early. Summary:"));
         console.log(
           chalk.cyan(
-            `- Processed ${processedCount} out of ${diffs.length} functions`
-          )
+            `- Processed ${processedCount} out of ${diffs.length} functions`,
+          ),
         );
         console.log(
-          chalk.cyan(`- Applied changes to ${acceptedFiles.size} files`)
+          chalk.cyan(`- Applied changes to ${acceptedFiles.size} files`),
         );
         console.log(chalk.yellow("Remaining changes were skipped."));
         return Array.from(acceptedFiles);

@@ -22,7 +22,7 @@ interface FileDiff {
 }
 
 export async function scanGitDiffTS(
-  stagedOnly: boolean = false
+  stagedOnly: boolean = false,
 ): Promise<DetectedFunction[]> {
   const cwd = process.cwd();
   const git = simpleGit({ baseDir: cwd });
@@ -49,7 +49,7 @@ export async function scanGitDiffTS(
         const functions = findFunctionsInHunk(
           sourceFile,
           hunk.newStart,
-          hunk.newStart + hunk.newLines
+          hunk.newStart + hunk.newLines,
         ) as DetectedFunction[]; // We know these will have code
         detectedFunctions.push(...functions);
       }
@@ -116,14 +116,14 @@ function parseGitDiff(diff: string): FileDiff[] {
 function findFunctionsInHunk(
   sourceFile: ts.SourceFile,
   startLine: number,
-  endLine: number
+  endLine: number,
 ): FunctionInfo[] {
   const detected: FunctionInfo[] = [];
 
   function visit(node: ts.Node) {
     if (isFunctionLike(node)) {
       const { line } = sourceFile.getLineAndCharacterOfPosition(
-        node.getStart()
+        node.getStart(),
       );
       const lineNumber = line + 1;
 
