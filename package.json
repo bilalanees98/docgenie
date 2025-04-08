@@ -1,6 +1,6 @@
 {
   "name": "doc-genie",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "AI-powered documentation enforcement tool that automatically generates JSDoc comments for new functions",
   "type": "module",
   "main": "dist/index.js",
@@ -31,7 +31,8 @@
     "prepare": "husky install",
     "prepublishOnly": "npm run build",
     "version": "npm run format && git add -A src",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "postinstall": ":"
   },
   "config": {
     "commitizen": {
